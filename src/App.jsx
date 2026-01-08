@@ -1,12 +1,11 @@
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import AppRoutes from "./routes/AppRoutes";
-import "./App.css";
+import Header from "./Layout/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <>
-      <Navbar />
+      <Header />
       <AppRoutes />
       <Footer />
     </>
