@@ -1,100 +1,77 @@
-import { useEffect, useRef, useState } from "react";
-import { NavLink, Link, Outlet } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, Link } from "react-router-dom";
 import { Menu, X, LogIn } from "lucide-react";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const menuRef = useRef(null);
-
-  /* ESC key close */
-  useEffect(() => {
-    const close = (e) => e.key === "Escape" && setOpen(false);
-    document.addEventListener("keydown", close);
-    return () => document.removeEventListener("keydown", close);
-  }, []);
 
   const navItems = [
     { to: "/", label: "Home" },
-    { to: "/about", label: "About" },
-    { to: "/contact", label: "Contact" },
+    { to: "/courses", label: "Courses" },
+    { to: "/industries", label: "Industries" },
+    { to: "/services", label: "Services" },
+    { to: "/careers", label: "Careers" },
+    { to: "/about", label: "About Us" },
   ];
 
   const navClass = ({ isActive }) =>
     `text-sm font-medium transition ${
-      isActive ? "text-blue-600" : "text-gray-600 hover:text-blue-600"
+      isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-600"
     }`;
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* ================= HEADER ================= */}
-      <header className="sticky top-0 z-50 bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="h-16 flex items-center justify-between">
-            {/* LOGO */}
+    <header className="sticky top-0 z-50 bg-white border-b">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="h-16 flex items-center gap-6">
+          {/* LOGO */}
+          <Link to="/" className="text-blue-600 font-semibold">
+            VMSS TECHNOLOGIES
+          </Link>
+
+          {/* DESKTOP NAV */}
+          <nav className="hidden md:flex gap-6 ml-8">
+            {navItems.map((item) => (
+              <NavLink key={item.to} to={item.to} className={navClass}>
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* RIGHT ACTIONS */}
+          <div className="ml-auto flex items-center gap-4">
             <Link
-              to="/"
-              className="text-blue-600 font-semibold text-lg tracking-wide"
+              to="/contact"
+              className="hidden md:inline-flex px-4 py-1.5 bg-blue-600 text-white rounded-md text-sm"
             >
-              VMSS TECHNOLOGIES
+              Contact
             </Link>
 
-            {/* DESKTOP NAV */}
-            <nav className="hidden md:flex items-center gap-6">
-              {navItems.map((item) => (
-                <NavLink key={item.to} to={item.to} className={navClass}>
-                  {item.label}
-                </NavLink>
-              ))}
-
-              <Link
-                to="/contact"
-                className="ml-2 px-4 py-1.5 rounded-md bg-blue-600 text-white text-sm hover:bg-blue-700"
-              >
-                Contact
-              </Link>
-            </nav>
-
-            {/* RIGHT SIDE */}
-            <div className="hidden md:flex items-center gap-4">
-              <input
-                type="text"
-                placeholder="Search training programs..."
-                className="border rounded-md px-3 py-1.5 text-sm w-56 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              />
-
-              <Link
-                to="/login"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-md border text-sm hover:bg-gray-50"
-              >
-                <LogIn size={16} />
-                Login
-              </Link>
-            </div>
-
-            {/* MOBILE BUTTON */}
-            <button
-              onClick={() => setOpen(true)}
-              className="md:hidden p-2 rounded-md hover:bg-gray-100"
+            <Link
+              to="/login"
+              className="hidden md:inline-flex text-gray-600 hover:text-blue-600"
+              title="Login"
             >
+              <LogIn size={20} />
+            </Link>
+
+            {/* MOBILE MENU BUTTON */}
+            <button onClick={() => setOpen(true)} className="md:hidden p-2">
               <Menu size={22} />
             </button>
           </div>
         </div>
-      </header>
+      </div>
 
-      {/* ================= MOBILE DRAWER ================= */}
+      {/* MOBILE DRAWER */}
       {open && (
-        <div className="fixed inset-0 z-50 flex">
+        <div className="fixed inset-0 z-50">
           <div
-            className="fixed inset-0 bg-black/40"
+            className="absolute inset-0 bg-black/40"
             onClick={() => setOpen(false)}
           />
 
-          <aside
-            ref={menuRef}
-            className="w-full max-w-xs bg-white p-6 shadow-xl"
-          >
-            <div className="flex items-center justify-between mb-6">
+          <div className="absolute top-0 left-0 w-72 h-full bg-white p-6">
+            <div className="flex justify-between mb-6">
               <span className="text-blue-600 font-semibold">
                 VMSS TECHNOLOGIES
               </span>
@@ -103,13 +80,13 @@ export default function Header() {
               </button>
             </div>
 
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col gap-4">
               {navItems.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
                   onClick={() => setOpen(false)}
-                  className="px-4 py-3 rounded-md text-gray-700 hover:bg-gray-50"
+                  className="text-gray-700"
                 >
                   {item.label}
                 </NavLink>
@@ -118,7 +95,7 @@ export default function Header() {
               <Link
                 to="/contact"
                 onClick={() => setOpen(false)}
-                className="mt-2 text-center py-3 rounded-md bg-blue-600 text-white"
+                className="mt-4 text-center py-2 rounded-md bg-blue-600 text-white"
               >
                 Contact
               </Link>
@@ -126,19 +103,15 @@ export default function Header() {
               <Link
                 to="/login"
                 onClick={() => setOpen(false)}
-                className="mt-4 text-center py-3 rounded-md border"
+                className="mt-3 flex items-center justify-center gap-2 text-blue-600"
               >
+                <LogIn size={18} />
                 Login
               </Link>
             </nav>
-          </aside>
+          </div>
         </div>
       )}
-
-      {/* ================= PAGE CONTENT ================= */}
-      <main className="max-w-7xl mx-auto px-4 py-6">
-        <Outlet />
-      </main>
-    </div>
+    </header>
   );
 }
