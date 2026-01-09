@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink, Link, Outlet } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Menu, X, LogIn } from "lucide-react";
 
 export default function Header() {
@@ -25,64 +25,49 @@ export default function Header() {
     }`;
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* ================= HEADER ================= */}
-      <header className="sticky top-0 z-50 bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="h-16 flex items-center justify-between">
-            {/* LOGO */}
+    <header className="sticky top-0 z-50 bg-white border-b">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="h-16 flex items-center justify-between">
+          
+          {/* LOGO */}
+          <Link
+            to="/"
+            className="text-blue-600 font-semibold text-lg tracking-wide"
+          >
+            VMSS TECHNOLOGIES
+          </Link>
+
+          {/* DESKTOP NAV */}
+          <nav className="hidden md:flex items-center gap-6">
+            {navItems.map((item) => (
+              <NavLink key={item.to} to={item.to} className={navClass}>
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* RIGHT SIDE */}
+          <div className="hidden md:flex items-center gap-4">
             <Link
-              to="/"
-              className="text-blue-600 font-semibold text-lg tracking-wide"
+              to="/login"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-md border text-sm hover:bg-gray-50"
             >
-              VMSS TECHNOLOGIES
+              <LogIn size={16} />
+              Login
             </Link>
-
-            {/* DESKTOP NAV */}
-            <nav className="hidden md:flex items-center gap-6">
-              {navItems.map((item) => (
-                <NavLink key={item.to} to={item.to} className={navClass}>
-                  {item.label}
-                </NavLink>
-              ))}
-
-              <Link
-                to="/contact"
-                className="ml-2 px-4 py-1.5 rounded-md bg-blue-600 text-white text-sm hover:bg-blue-700"
-              >
-                Contact
-              </Link>
-            </nav>
-
-            {/* RIGHT SIDE */}
-            <div className="hidden md:flex items-center gap-4">
-              <input
-                type="text"
-                placeholder="Search training programs..."
-                className="border rounded-md px-3 py-1.5 text-sm w-56 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              />
-
-              <Link
-                to="/login"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-md border text-sm hover:bg-gray-50"
-              >
-                <LogIn size={16} />
-                Login
-              </Link>
-            </div>
-
-            {/* MOBILE BUTTON */}
-            <button
-              onClick={() => setOpen(true)}
-              className="md:hidden p-2 rounded-md hover:bg-gray-100"
-            >
-              <Menu size={22} />
-            </button>
           </div>
-        </div>
-      </header>
 
-      {/* ================= MOBILE DRAWER ================= */}
+          {/* MOBILE BUTTON */}
+          <button
+            onClick={() => setOpen(true)}
+            className="md:hidden p-2 rounded-md hover:bg-gray-100"
+          >
+            <Menu size={22} />
+          </button>
+        </div>
+      </div>
+
+      {/* MOBILE DRAWER */}
       {open && (
         <div className="fixed inset-0 z-50 flex">
           <div
@@ -116,14 +101,6 @@ export default function Header() {
               ))}
 
               <Link
-                to="/contact"
-                onClick={() => setOpen(false)}
-                className="mt-2 text-center py-3 rounded-md bg-blue-600 text-white"
-              >
-                Contact
-              </Link>
-
-              <Link
                 to="/login"
                 onClick={() => setOpen(false)}
                 className="mt-4 text-center py-3 rounded-md border"
@@ -134,11 +111,6 @@ export default function Header() {
           </aside>
         </div>
       )}
-
-      {/* ================= PAGE CONTENT ================= */}
-      <main className="max-w-7xl mx-auto px-4 py-6">
-        <Outlet />
-      </main>
-    </div>
+    </header>
   );
 }
