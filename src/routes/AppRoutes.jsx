@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import Services from "../pages/Services";
 
 /* ================= LAZY IMPORTS ================= */
 const Home = lazy(() => import("../pages/Home"));
@@ -21,6 +22,7 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/Services" element={ <Services /> } />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />

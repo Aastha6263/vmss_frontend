@@ -16,7 +16,8 @@ export default function Header() {
   const navItems = [
     { to: "/", label: "Home" },
     { to: "/about", label: "About" },
-    { to: "/contact", label: "Contact" },
+    { to: "/services", label: "Services" },
+    // { to: "/contact", label: "Contact" },
   ];
 
   const navClass = ({ isActive }) =>
@@ -25,7 +26,7 @@ export default function Header() {
     }`;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
       {/* ================= HEADER ================= */}
       <header className="sticky top-0 z-50 bg-white border-b">
         <div className="max-w-7xl mx-auto px-4">
@@ -115,13 +116,13 @@ export default function Header() {
                 </NavLink>
               ))}
 
-              <Link
+              {/* <Link
                 to="/contact"
                 onClick={() => setOpen(false)}
                 className="mt-2 text-center py-3 rounded-md bg-blue-600 text-white"
               >
                 Contact
-              </Link>
+              </Link> */}
 
               <Link
                 to="/login"
