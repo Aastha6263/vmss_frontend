@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 export default function TrainingFormModal({ open, title, onClose }) {
   const formRef = useRef(null);
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    contact: "",
-    trainingType: "",
-    city: "",
-    country: "",
-    message: "",
+    name: '',
+    email: '',
+    contact: '',
+    trainingType: '',
+    city: '',
+    country: '',
+    message: '',
   });
   const [errors, setErrors] = useState({});
 
@@ -17,16 +17,16 @@ export default function TrainingFormModal({ open, title, onClose }) {
     if (open) {
       setErrors({});
       setForm({
-        name: "",
-        email: "",
-        contact: "",
-        trainingType: "",
-        city: "",
-        country: "",
-        message: "",
+        name: '',
+        email: '',
+        contact: '',
+        trainingType: '',
+        city: '',
+        country: '',
+        message: '',
       });
       // focus first input after open
-      setTimeout(() => formRef.current?.querySelector("input")?.focus(), 80);
+      setTimeout(() => formRef.current?.querySelector('input')?.focus(), 80);
     }
   }, [open]);
 
@@ -34,11 +34,11 @@ export default function TrainingFormModal({ open, title, onClose }) {
 
   const validate = () => {
     const errs = {};
-    if (!form.name.trim()) errs.name = "Name is required";
-    if (!form.contact.trim()) errs.contact = "Contact is required";
-    if (!form.trainingType) errs.trainingType = "Training type is required";
-    if (!form.city.trim()) errs.city = "City is required";
-    if (!form.country.trim()) errs.country = "Country is required";
+    if (!form.name.trim()) errs.name = 'Name is required';
+    if (!form.contact.trim()) errs.contact = 'Contact is required';
+    if (!form.trainingType) errs.trainingType = 'Training type is required';
+    if (!form.city.trim()) errs.city = 'City is required';
+    if (!form.country.trim()) errs.country = 'Country is required';
     return errs;
   };
 
@@ -90,7 +90,7 @@ export default function TrainingFormModal({ open, title, onClose }) {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className={`mt-1 w-full px-3 py-2 border rounded ${
-                    errors.name ? "border-red-500" : "border-gray-300"
+                    errors.name ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Your name"
                 />
@@ -119,7 +119,7 @@ export default function TrainingFormModal({ open, title, onClose }) {
                     setForm({ ...form, contact: e.target.value })
                   }
                   className={`mt-1 w-full px-3 py-2 border rounded ${
-                    errors.contact ? "border-red-500" : "border-gray-300"
+                    errors.contact ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="+91 9XXXXXXXXX"
                 />
@@ -136,7 +136,7 @@ export default function TrainingFormModal({ open, title, onClose }) {
                     setForm({ ...form, trainingType: e.target.value })
                   }
                   className={`mt-1 w-full px-3 py-2 border rounded ${
-                    errors.trainingType ? "border-red-500" : "border-gray-300"
+                    errors.trainingType ? 'border-red-500' : 'border-gray-300'
                   }`}
                 >
                   <option value="">Select training type</option>
@@ -158,7 +158,7 @@ export default function TrainingFormModal({ open, title, onClose }) {
                   value={form.city}
                   onChange={(e) => setForm({ ...form, city: e.target.value })}
                   className={`mt-1 w-full px-3 py-2 border rounded ${
-                    errors.city ? "border-red-500" : "border-gray-300"
+                    errors.city ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Your city"
                 />
@@ -175,7 +175,7 @@ export default function TrainingFormModal({ open, title, onClose }) {
                     setForm({ ...form, country: e.target.value })
                   }
                   className={`mt-1 w-full px-3 py-2 border rounded ${
-                    errors.country ? "border-red-500" : "border-gray-300"
+                    errors.country ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Country"
                 />

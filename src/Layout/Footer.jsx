@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   FaLinkedinIn,
   FaFacebookF,
   FaXTwitter,
   FaInstagram,
   FaYoutube,
-} from "react-icons/fa6";
+} from 'react-icons/fa6';
 
-import Chatbot from "./TalkWithUsButton";
+import Chatbot from '../components/TalkWithUsButton';
 
 export default function Footer() {
   const [chatOpen, setChatOpen] = useState(false);
@@ -46,15 +46,15 @@ function FooterBrand() {
         className="text-2xl mb-4 text-white tracking-wider"
         style={{
           fontFamily: "'Pacifico', cursive",
-          textShadow: "0 0 3px rgba(255,255,255,0.6)",
+          textShadow: '0 0 3px rgba(255,255,255,0.6)',
         }}
       >
         VMSS TECHNOLOGIES
       </h2>
 
       <p className="text-base leading-relaxed mb-6">
-        Empowering professionals with skills for the future through
-        expert-led training programs and practical learning solutions.
+        Empowering professionals with skills for the future through expert-led
+        training programs and practical learning solutions.
       </p>
 
       <SocialIcons />
@@ -65,11 +65,21 @@ function FooterBrand() {
 function SocialIcons() {
   return (
     <div className="flex gap-3">
-      <Icon href="https://www.linkedin.com"><FaLinkedinIn /></Icon>
-      <Icon href="https://www.facebook.com"><FaFacebookF /></Icon>
-      <Icon href="https://twitter.com"><FaXTwitter /></Icon>
-      <Icon href="https://www.instagram.com"><FaInstagram /></Icon>
-      <Icon href="https://www.youtube.com"><FaYoutube /></Icon>
+      <Icon href="https://www.linkedin.com">
+        <FaLinkedinIn />
+      </Icon>
+      <Icon href="https://www.facebook.com">
+        <FaFacebookF />
+      </Icon>
+      <Icon href="https://twitter.com">
+        <FaXTwitter />
+      </Icon>
+      <Icon href="https://www.instagram.com">
+        <FaInstagram />
+      </Icon>
+      <Icon href="https://www.youtube.com">
+        <FaYoutube />
+      </Icon>
     </div>
   );
 }
@@ -108,13 +118,19 @@ function FooterFollow() {
   return (
     <div>
       <h3 className="text-lg font-semibold mb-6">Follow Us</h3>
-      <p className="text-sm mb-3">
-        Stay connected for updates and new courses
-      </p>
+      <p className="text-sm mb-3">Stay connected for updates and new courses</p>
 
       <div className="space-y-2 text-sm">
-        <FollowItem icon={<FaLinkedinIn />} text="LinkedIn" href="https://www.linkedin.com" />
-        <FollowItem icon={<FaYoutube />} text="YouTube" href="https://www.youtube.com" />
+        <FollowItem
+          icon={<FaLinkedinIn />}
+          text="LinkedIn"
+          href="https://www.linkedin.com"
+        />
+        <FollowItem
+          icon={<FaYoutube />}
+          text="YouTube"
+          href="https://www.youtube.com"
+        />
       </div>
     </div>
   );

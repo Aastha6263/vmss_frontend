@@ -1,5 +1,6 @@
-import { useState } from "react";
-import TrainingFormModal from "./TrainingFormModal";
+import { useState } from 'react';
+import TrainingFormModal from './TrainingFormModal';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * HeroSection
@@ -11,12 +12,13 @@ import TrainingFormModal from "./TrainingFormModal";
 
 export default function HeroSection() {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
+  const navigate = useNavigate();
 
   const options = [
-    "Become an Instructor",
-    "Corporate Training",
-    "Individual Training",
+    'Become an Instructor',
+    'Corporate Training',
+    'Individual Training',
   ];
 
   const openForm = (label) => {
@@ -107,9 +109,13 @@ export default function HeroSection() {
           {/* small CTA image / buttons block (screenshot shows a small image strip) */}
           <div className="mt-6">
             <div className="w-full max-w-2xl h-20 bg-gradient-to-r from-blue-600 to-transparent rounded-md flex items-center px-6">
-              <button className="bg-white text-blue-600 px-5 py-2 rounded mr-4">
+              <button
+                onClick={() => navigate('/courses')}
+                className="bg-white text-blue-600 px-5 py-2 rounded mr-4"
+              >
                 Explore Services
               </button>
+
               <button className="border border-white/70 text-white px-5 py-2 rounded">
                 Learn More
               </button>

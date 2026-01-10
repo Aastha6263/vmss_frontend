@@ -1,24 +1,38 @@
-import { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
-import { Menu, X, LogIn } from "lucide-react";
+import { useState } from 'react';
+import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
+import { useScroll } from '../context/ScrollContext';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { servicesRef, contactRef, scrollTo } = useScroll();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = [
-    { to: "/", label: "Home" },
-    { to: "/courses", label: "Courses" },
-    { to: "/industries", label: "Industries" },
-    { to: "/services", label: "Services" },
-    { to: "/careers", label: "Careers" },
-    { to: "/about", label: "About Us" },
-    { to: "/contact", label: "Contact" },
+    { label: 'Home', to: '/' },
+    { label: 'Courses', to: '/courses' },
+    { label: 'Industries', to: '/industries' },
+    { label: 'Services', scroll: 'services' }, // ✅ SCROLL ONLY
+    { label: 'Careers', to: '/careers' },
+    { label: 'About Us', to: '/about' },
   ];
 
   const navClass = ({ isActive }) =>
     `text-sm font-medium transition ${
-      isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-600"
+      isActive ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'
     }`;
+
+  const handleScroll = (ref) => {
+    setOpen(false);
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => scrollTo(ref), 120);
+    } else {
+      scrollTo(ref);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b">
@@ -31,31 +45,42 @@ export default function Header() {
 
           {/* DESKTOP NAV */}
           <nav className="hidden md:flex gap-6 ml-8">
-            {navItems.map((item) => (
-              <NavLink key={item.to} to={item.to} className={navClass}>
-                {item.label}
-              </NavLink>
-            ))}
+            {navItems.map((item) =>
+              item.scroll ? (
+                <button
+                  key={item.label}
+                  onClick={() => handleScroll(servicesRef)}
+                  className="text-sm font-medium text-gray-700 hover:text-blue-600"
+                >
+                  {item.label}
+                </button>
+              ) : (
+                <NavLink key={item.to} to={item.to} className={navClass}>
+                  {item.label}
+                </NavLink>
+              )
+            )}
           </nav>
 
           {/* RIGHT ACTIONS */}
           <div className="ml-auto flex items-center gap-4">
-            <Link
-              to="/contact"
+            {/* CONTACT */}
+            <button
+              onClick={() => handleScroll(contactRef)}
               className="hidden md:inline-flex px-4 py-1.5 bg-blue-600 text-white rounded-md text-sm"
             >
               Contact
-            </Link>
+            </button>
 
+            {/* LOGIN */}
             <Link
               to="/login"
               className="hidden md:inline-flex px-4 py-1.5 bg-blue-600 rounded-md text-sm text-gray-300 hover:text-gray-600"
-              title="Login"
             >
-              {/* <LogIn size={20} /> */}Login
+              Login
             </Link>
 
-            {/* MOBILE MENU BUTTON */}
+            {/* MOBILE MENU BTN */}
             <button onClick={() => setOpen(true)} className="md:hidden p-2">
               <Menu size={22} />
             </button>
@@ -82,18 +107,33 @@ export default function Header() {
             </div>
 
             <nav className="flex flex-col gap-4">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setOpen(false)}
-                  className="text-gray-700"
-                >
-                  {item.label}
-                </NavLink>
-              ))}
+              {navItems.map((item) =>
+                item.scroll ? (
+                  <button
+                    key={item.label}
+                    onClick={() => handleScroll(servicesRef)}
+                    className="text-left text-gray-700 font-medium"
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setOpen(false)}
+                    className="text-gray-700"
+                  >
+                    {item.label}
+                  </NavLink>
+                )
+              )}
 
-          
+              <button
+                onClick={() => handleScroll(contactRef)}
+                className="text-left text-blue-600 font-medium"
+              >
+                Contact
+              </button>
             </nav>
           </div>
         </div>
